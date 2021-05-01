@@ -67,11 +67,25 @@ export default function Home({ data }) {
     })
   }
 
+  function handleOnSubmitSearch(e) {
+    e.preventDefault();
+
+    const { currentTarget = {} } = e;
+    const fields = Array.from(currentTarget?.elements);
+    const fieldQuery = fields.find(field => field.name === 'query');
+
+    const value = fieldQuery.value || '';
+    const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`;
+
+    updatePage({
+      current: endpoint,
+    });
+  }
+
   return (
     <div className="container">
       <Head>
         <title>Rick And Morty Wiki</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
@@ -80,7 +94,10 @@ export default function Home({ data }) {
         </h1>
 
 
-
+        <form className="search" onSubmit={handleOnSubmitSearch}>
+          <input name="query" type="search" />
+          <button>Search</button>
+        </form>
 
 
         <ul className="grid">
