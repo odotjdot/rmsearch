@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const defaultEndPoint = 'https://rickandmortyapi.com/api/character';
 
-export async function getServerSideProps() {
-  const res = await fetch(defaultEndPoint);
+export async function getServerSideProps({ query }) {
+  const { id } = query;
+  const res = await fetch(`${defaultEndPoint}/${id}`);
   const data = await res.json();
 
   return {
@@ -15,109 +15,56 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ data }) {
-
-  const { info, results: defaultResults = [] } = data;
-  const [ results, updateResults ] = useState(defaultResults);
-  const [page, updatePage] = useState({ 
-    ...info,
-    current: defaultEndPoint,
-  })
-
-  const { current } = page;
-
-  console.log(page)
-
-  useEffect(()=> {
-    if ( current === defaultEndPoint ) return;
-
-    async function request() {
-      const result = await fetch(current)
-      const nextData = await result.json();
-
-      updatePage({
-        current,
-        ...nextData.info,
-      });
-
-      if ( !nextData.info?.prev ) {
-        updateResults(nextData.results);
-        return
-      }
-
-      updateResults(prev => {
-        console.log('prev =======' , prev)
-        return [
-          ...prev,
-          ...nextData.results,
-        ]
-      });
-    }
-
-    request();
-
-  }, [current]);
-
-  function handleLoadMore() {
-    updatePage(prev => {
-      return {
-        ...prev,
-        current: page?.next
-      }
-    })
-  }
-
-  function handleOnSubmitSearch(e) {
-    e.preventDefault();
-
-    const { currentTarget = {} } = e;
-    const fields = Array.from(currentTarget?.elements);
-    const fieldQuery = fields.find(field => field.name === 'query');
-
-    const value = fieldQuery.value || '';
-    const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`;
-
-    updatePage({
-      current: endpoint,
-    });
-  }
-
+export default function Character({ data }) {
+  const { name, image, gender, location, origin, species, status } = data;
+  console.log(data)
   return (
     <div className="container">
       <Head>
-        <title>Rick And Morty Wiki</title>
+        <title>{ name } | Rick And Morty Wiki</title>
       </Head>
 
       <main>
         <h1 className="title">
-          Rick And Morty Wiki
+        { name }
         </h1>
 
 
-        <form className="search" onSubmit={handleOnSubmitSearch}>
-          <input name="query" type="search" />
-          <button>Search</button>
-        </form>
-
-
         <ul className="grid">
-          {results.map(result => {
-            const { id, name, image } = result;
-
-            return (
-              <li className="card" key={id}>
-                <Link href="/character/[id]" as={`/character/${id}`}>
-                  <a>
-                    <img src={image} alt={`${name}-thumb`}/>
-                    <h3>{name}</h3>
-                  </a>
-                </Link>
+          <li className="card">
+            <img src={image} alt={`${name}-thumb`} />
+          </li>
+          <li className="card">
+            <ul>
+              <li>
+                <strong>Name: </strong> { name }
               </li>
-            )
-          })}
+              <li>
+                <strong>Status:</strong> { status } 
+              </li>
+              <li>
+                <strong>Gender:</strong> { gender } 
+              </li>
+              <li>
+                <strong>Species:</strong> { species } 
+              </li>
+              <li>
+                <strong>Location:</strong>{ location?.name } 
+              </li>
+              <li>
+                <strong>Origin:</strong>{ origin?.name } 
+              </li>
+            </ul>
+          </li>
           
         </ul>
-        <button onClick={handleLoadMore}>Load More</button>
+        <p>
+          <Link href="/">
+            <a>
+              Back To All Characters
+            </a>
+          </Link>
+        </p>
       </main>
 
       <footer>
