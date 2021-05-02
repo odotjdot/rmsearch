@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { isEmpty } from 'lodash';
 
 
 const defaultEndPoint = 'https://rickandmortyapi.com/api/character';
@@ -16,6 +17,8 @@ export default function Home({ data }) {
   })
 
   const { current } = page;
+
+  console.log( page )
 
 
   useEffect(()=> {
@@ -107,7 +110,9 @@ export default function Home({ data }) {
         </p>
 
         <ul className="grid">
-          {results.map(result => {
+          { isEmpty(results) 
+          ? <div> nah </div> 
+          : results.map(result => {
             const { id, name, image } = result;
 
             return (
@@ -118,8 +123,8 @@ export default function Home({ data }) {
                   position: 'relative',
                   zIndex: 1,
                   background: 'white',
-                  scale: [1, 1.4, 1.6, 1.2],
-                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.6, 1.2],
+                  rotate: [0, 10, -5, 0],
                   filter: [
                     'hue-rotate(0) contrast(100%)',
                     'hue-rotate(360deg) contrast(200%)',
@@ -131,7 +136,11 @@ export default function Home({ data }) {
                   }
                 }}
               >
-                <Link href="/character/[id]" as={`/character/${id}`}>
+                <Link 
+                  href="/character/[id]" 
+                  as={`/character/${id}`}
+                  scroll={false}
+                >
                   <a>
                     <img
                       src={image}
@@ -145,7 +154,9 @@ export default function Home({ data }) {
           })}
           
         </ul>
-        <button onClick={handleLoadMore}>Load More</button>
+        { !isEmpty(page.next) && 
+          <button onClick={handleLoadMore}>Load More</button>
+        }
       </main>
 
 
