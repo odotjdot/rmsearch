@@ -81,6 +81,7 @@ export default function Home({ data }) {
       </Head>
 
       <main>
+      <div>
         <motion.div
           initial="hidden"
           animate="visible"
@@ -102,16 +103,19 @@ export default function Home({ data }) {
             Rick And Morty Wiki
           </h1>
         </motion.div>
+        </div>
         <p>
         <form className="search" onSubmit={handleOnSubmitSearch}>
           <input name="query" type="search" />
           <button>Search</button>
         </form>
         </p>
-
+        
         <ul className="grid">
           { isEmpty(results) 
-          ? <div> nah </div> 
+          ? <motion.li className="card" >                
+              <h3>No Results</h3>
+            </motion.li>
           : results.map(result => {
             const { id, name, image } = result;
 
@@ -154,8 +158,13 @@ export default function Home({ data }) {
           })}
           
         </ul>
-        { !isEmpty(page.next) && 
-          <button onClick={handleLoadMore}>Load More</button>
+        { isEmpty(page.next) 
+          ? <div>
+              <p>
+              All Results Loaded
+              </p>
+            </div>
+          : <button onClick={handleLoadMore}>Load More</button>
         }
       </main>
 
