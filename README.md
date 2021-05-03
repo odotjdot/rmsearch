@@ -1,5 +1,5 @@
 ## About
-The Rick and Morty Character Search demo app a fun react app that is built using React and Next.js. 
+The Rick and Morty Character Search demo app a fun app that is built using React and Next.js. 
 
 ## Getting Started
 
