@@ -84,7 +84,7 @@ export default function Home({ data }) {
   return (
     <>
     <Head>
-      <title>Rick And Morty Wiki</title>
+      <title>Rick And Morty Character Search</title>
     </Head>
 
     <Container fluid="sm">
@@ -109,7 +109,7 @@ export default function Home({ data }) {
           }}
         >
           <h1 className="title">
-            Rick And Morty Wiki
+            Rick And Morty <br /> Character Search
           </h1>
         </motion.div>
         </Jumbotron>
