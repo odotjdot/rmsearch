@@ -92,11 +92,11 @@ export default function Home({ data }) {
           animate="visible"
           variants={{
             hidden: {
-              scale: .8,
+              // scale: .8,
               opacity: 0,
             },
             visible: {
-              scale: [1, 1.4, 1.2],
+              scale: [1, 1.4, 1.2, 1],
               opacity: 1,
               transition: {
                 delay: .1,
