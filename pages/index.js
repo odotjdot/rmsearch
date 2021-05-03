@@ -86,7 +86,10 @@ export default function Home({ data }) {
     <Head>
       <title>Rick And Morty Wiki</title>
     </Head>
-    <Jumbotron className="hero" fluid={true}>
+
+    <Container fluid="sm">
+      
+    <Jumbotron className="hero">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -110,9 +113,6 @@ export default function Home({ data }) {
           </h1>
         </motion.div>
         </Jumbotron>
-    <Container fluid="sm">
-      
-
 
       <main>
       
