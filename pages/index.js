@@ -3,6 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { isEmpty } from 'lodash';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Form from 'react-bootstrap/Form'
+
 
 
 const defaultEndPoint = 'https://rickandmortyapi.com/api/character';
@@ -75,13 +82,11 @@ export default function Home({ data }) {
   }
 
   return (
-    <div className="container">
-      <Head>
-        <title>Rick And Morty Wiki</title>
-      </Head>
-
-      <main>
-      <div>
+    <>
+    <Head>
+      <title>Rick And Morty Wiki</title>
+    </Head>
+    <Jumbotron fluid={true}>
         <motion.div
           initial="hidden"
           animate="visible"
@@ -103,24 +108,33 @@ export default function Home({ data }) {
             Rick And Morty Wiki
           </h1>
         </motion.div>
-        </div>
-        <p>
-        <form className="search" onSubmit={handleOnSubmitSearch}>
-          <input name="query" type="search" />
-          <button>Search</button>
-        </form>
-        </p>
+        </Jumbotron>
+    <Container fluid="sm">
+      
+
+
+      <main>
+      
+        <Row className="search">
+          <Col>
+        <Form className="justify-content-center" onSubmit={handleOnSubmitSearch} inline>
+          <Form.Control name="query" type="search" />
+          <Button>Search</Button>
+        </Form>
+        </Col>
+        </Row>
         
-        <ul className="grid">
+        <Row>
           { isEmpty(results) 
-          ? <motion.li className="card" >                
+          ? <Col>                
               <h3>No Results</h3>
-            </motion.li>
+            </Col>
           : results.map(result => {
             const { id, name, image } = result;
 
             return (
-              <motion.li 
+              <Col md={6}>
+              <motion.div 
                 className="card" 
                 key={id}
                 whileHover={{
@@ -153,24 +167,30 @@ export default function Home({ data }) {
                     <h3>{name}</h3>
                   </a>
                 </Link>
-              </motion.li>
+              </motion.div>
+              </Col>
             )
           })}
           
-        </ul>
+        </Row>
+        <Row className="justify-content-center">
+          <Col>
         { isEmpty(page.next) 
-          ? <div>
-              <p>
-              All Results Loaded
-              </p>
-            </div>
-          : <button onClick={handleLoadMore}>Load More</button>
+          ? 
+              
+              <p>All Results Loaded</p>
+              
+            
+          : <Button onClick={handleLoadMore}>Load More</Button>
         }
+        </Col>
+          </Row>
       </main>
 
 
 
-    </div>
+    </Container>
+    </>
   )
 }
 
