@@ -15,5 +15,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Or
 
-Visit [https://rmsearch.vercel.app/] (https://rmsearch.vercel.app/) to view the demo.
+Visit https://rmsearch.vercel.app/ to view the demo.
 
