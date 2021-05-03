@@ -86,7 +86,7 @@ export default function Home({ data }) {
     <Head>
       <title>Rick And Morty Wiki</title>
     </Head>
-    <Jumbotron fluid={true}>
+    <Jumbotron className="hero" fluid={true}>
         <motion.div
           initial="hidden"
           animate="visible"
@@ -96,10 +96,11 @@ export default function Home({ data }) {
               opacity: 0,
             },
             visible: {
-              scale: 1,
+              scale: [1, 1.4, 1.2],
               opacity: 1,
               transition: {
                 delay: .1,
+                duration: .2,
               }
             }
           }}
@@ -119,14 +120,14 @@ export default function Home({ data }) {
           <Col>
         <Form className="justify-content-center" onSubmit={handleOnSubmitSearch} inline>
           <Form.Control name="query" type="search" />
-          <Button>Search</Button>
+          <button className="btn btn-primary">Search</button>
         </Form>
         </Col>
         </Row>
         
-        <Row>
+        <Row className="justify-content-center">
           { isEmpty(results) 
-          ? <Col>                
+          ? <Col md={6} className="search" >                
               <h3>No Results</h3>
             </Col>
           : results.map(result => {
@@ -173,7 +174,7 @@ export default function Home({ data }) {
           })}
           
         </Row>
-        <Row className="justify-content-center">
+        <Row className="search justify-content-center">
           <Col>
         { isEmpty(page.next) 
           ? 
@@ -181,7 +182,7 @@ export default function Home({ data }) {
               <p>All Results Loaded</p>
               
             
-          : <Button onClick={handleLoadMore}>Load More</Button>
+          : <Button className="justify-content-center" onClick={handleLoadMore}>Load More</Button>
         }
         </Col>
           </Row>

@@ -28,16 +28,6 @@ a {
   text-decoration: none;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
 
 .title {
   margin: 0;
@@ -52,7 +42,9 @@ a {
 
 .description {
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  text-align: left;
+
 }
 
 .card {
@@ -64,6 +56,18 @@ a {
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
+  display: flex;
+  // align-items: center;
+
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    list-style: none;
+    padding-top: .5rem;
+  };
 }
 
 .card h3 {
@@ -80,7 +84,19 @@ a {
 .card img {
   width: 100%;
 }
-
+.card_single {
+  display: flex;
+  justify-content: center;
+}
 .search {
-  padding-bottom: 5rem;
+  padding: 1rem 0 5rem;
+  text-align: center;
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.jumbotron.hero {
+  background: white
 }

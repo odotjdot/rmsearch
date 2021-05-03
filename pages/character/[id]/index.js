@@ -10,7 +10,6 @@ const defaultEndPoint = 'https://rickandmortyapi.com/api/character';
 
 export default function Character({ data }) {
   const { name, image, gender, location, origin, species, status } = data;
-  console.log(data)
   return (
     <div className="container">
       <Head>
@@ -22,20 +21,22 @@ export default function Character({ data }) {
         { name }
         </h1>
 
-        <p>
+        <Row>
+        <Col className="search justify-content-center">
           <Link href="/">
             <a>
               Back To All Characters
             </a>
           </Link>
-        </p>
+        </Col>
+        </Row>
 
-        <ul className="grid">
+        <ul className="card_single">
           <li className="card">
             <img src={image} alt={`${name}-thumb`} />
-          </li>
-          <li className="card">
-            <ul>
+          
+          
+            <ul className="description">
               <li>
                 <strong>Name: </strong> { name }
               </li>
@@ -49,10 +50,10 @@ export default function Character({ data }) {
                 <strong>Species:</strong> { species } 
               </li>
               <li>
-                <strong>Location:</strong>{ location?.name } 
+                <strong>Location:</strong> { location?.name } 
               </li>
               <li>
-                <strong>Origin:</strong>{ origin?.name } 
+                <strong>Origin:</strong> { origin?.name } 
               </li>
             </ul>
           </li>
