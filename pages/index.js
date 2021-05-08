@@ -24,7 +24,6 @@ export default function Home({ data }) {
   })
 
   const { current } = page;
-
   useEffect(()=> {
     if ( current === defaultEndPoint ) return;
 
